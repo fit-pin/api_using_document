@@ -13,6 +13,40 @@
 -   함수 설명도 다 처리 했으니 함수설명도 봐주심 좋아요
 
 ## 예제코드
+### 실전예제
+
+```ts
+  // post 요청 예시
+  // api 요청 문서에 body를 함수 인자로 두는거다
+  // 그리고 path.join() 에 , 를 나누는 기준은 "/""
+  // api/test/ps 면
+  // path.join("api", "test", "ps")
+  // DATA_URL 은 Constant.ts 에 정의된 DB 요청 원본 주소를 가르킨다 (http://localhost/)
+  reqPost(path.join(DATA_URL, '/items'), {
+    itemKey: 1,
+    itemNum: 1,
+    itemName: '테스트용 요청 옷',
+    itemType: '상의',
+    ItemBrand: '테스트용 브랜드',
+    itemImg1: 'img1.png',
+    itemImg2: 'img2.png',
+    itemImg3: 'img3.png',
+    itemCnt: '5000',
+    itemContent: '테스트 아이템입니다',
+    itemPrice: 300,
+    itemDate: '2023-06-05',
+  }).then(item => {
+    console.log(item); // 이제 데이터가 오면 여기 콘솔로그가 찍힐 것
+    console.log('테스트');
+  });
+
+  console.log('아아'); // 이친구는 위 테스트 보다 먼저 찍힌다. 왜냐면 위 로직이 비동기이다
+
+  // get 요청 예시
+  reqGet(path.join(DATA_URL, '/itemdetails', '1')).then(item =>
+    console.log(item),
+  );
+```
 
 ### 데이터 백엔드 요청
 
