@@ -151,50 +151,52 @@ reqFileUpload(path.join("url"), formData)
         // 예외 발생시
         console.log(e);
     });
-
 ```
 
-### AR 백엔드 요청 (앱만 해당)
+#### 파일 업로드 (웹)
+
+-   참고로 GPT가 짜준거 수정한거라 테스트는 못해봐서 안될수도 있어요
+
+```ts
+import React from "react";
+import { reqFileUpload } from "./Request.js";
+
+function App() {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        // async, await 방식
+        const res = await reqFileUpload("url", formData);
+        console.log(res);
+
+        // callback 방식
+        reqFileUpload("url", formData)
+            .then((data) => console.log(data))
+            .catch((err) => console.log(err));
+    };
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}>
+                {/* input 에 name 속성을 api 문서 키값과 맞출것  */}
+                <div>
+                    Name: <input type="text" name="name" required />
+                </div>
+                <div>
+                    File: <input type="file" name="file" required />
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    );
+}
+```
+
+### AR 백엔드 요청
 
 -   AR은 [Camera.tsx](https://github.com/fit-pin/fitpin_frontend/blob/ff73e669f01a6b2e9d1ad86887f724488fffd365/android/app/src/screens/Main/Camera.tsx#L98-L117) 에 제가 연결 해둔거 참고 해주세요
 
 -   `path.join()` 은 `http://localhost`, `/api` -> `http://localhost/api` 이런식으로 url 합치는 함수입니다.
-
-```ts
-import { ArRequest } from "./Request.ts"; // 이건 경로 잘 바꿀것
-
-const formData = new FormData(); // multipart/form-data 만들기
-const name = data.uri.split("/").pop();
-
-// 키값이 anaFile, 요청해야 되는게 파일
-formData.append("anaFile", {
-    uri: "파일 uri", // 파일 uri
-    name: "test.jpg", // 파일 이름 (아무거나 상관x)
-    type: "image/jpeg", // 파일 타입
-} as FormDataValue);
-
-// 키값이 personKey, 요청해야 되는게 숫자
-formData.append("personKey", "174");
-
-// await, async  방식
-async function name() {
-    const res = await ArRequest(path.join(AR_URL, "bodymea"), formData);
-
-    // 응답이 json 이면
-    console.log(await res.json());
-
-    // 응답이 파일이면
-    console.log(await res.blob());
-}
-
-// callback 방식
-ArRequest(path.join(AR_URL, "bodymea"), formData)
-    .then(async (res) => {
-        // 응답이 json 이면
-        console.log(await res.json());
-
-        // 응답이 파일이면
-        console.log(await res.blob());
-    })
-    .catch((e) => console.log(e));
-```
