@@ -121,7 +121,7 @@ reqPost("http://localhost/api", body)
     });
 ```
 
-#### 파일 업로드
+#### 파일 업로드 (앱)
 
 ```js
 import { reqFileUpload } from "./Request.ts";
@@ -154,7 +154,7 @@ reqFileUpload(path.join("url"), formData)
 
 ```
 
-### AR 백엔드 요청
+### AR 백엔드 요청 (앱만 해당)
 
 -   AR은 [Camera.tsx](https://github.com/fit-pin/fitpin_frontend/blob/ff73e669f01a6b2e9d1ad86887f724488fffd365/android/app/src/screens/Main/Camera.tsx#L98-L117) 에 제가 연결 해둔거 참고 해주세요
 
