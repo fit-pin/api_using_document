@@ -71,7 +71,6 @@ export async function reqPost(url, body) {
  *  .catch(err => console.log(err));
  */
 export async function reqFileUpload(url, formData) {
-    // url 에 /있는지 판단
     const res = await fetch(url, {
         method: "post",
         headers: {
