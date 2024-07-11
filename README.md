@@ -157,7 +157,7 @@ reqFileUpload(path.join("url"), formData)
 
 -   참고로 GPT가 짜준거 수정한거라 테스트는 못해봐서 안될수도 있어요
 
-```ts
+```tsx
 import React from "react";
 import { reqFileUpload } from "./Request.js";
 
